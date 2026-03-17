@@ -105,8 +105,32 @@ npm test
 
 # Exécuter en mode watch
 npm test -- --watch
-```
 
+## Docker
+
+Pour lancer l'application avec Docker :
+
+1. **Construction de l'image** :
+   ```bash
+   docker build -t jaydee-kanban-app .
+docker run -p 3000:3000 jaydee-kanban-app
+### 2. Créer le fichier CI/CD (Question 4)
+C'est indispensable pour le côté "DevOps". Sur ton GitHub :
+1. Crée un dossier nommé `.github` à la racine.
+2. À l'intérieur, crée un dossier nommé `workflows`.
+3. Crée un fichier nommé `ci.yml` et colle le code YAML que nous avons validé (avec `actions/checkout@v3`, `npm install`, `npm test`).
+
+### 3. Créer un fichier de synthèse (Question 7)
+Crée un nouveau fichier à la racine nommé `SYNTHESE.md` et colle le texte de ta Question 7 (Contexte du projet, choix de Node.js, TypeScript, etc.). Cela prouvera au correcteur que tu as compris la démarche globale.
+
+---
+
+### Résumé de ce que ton GitHub doit contenir :
+* **Le code source** (`src`, `package.json`, etc.)
+* **`README.md`** (ton fichier actuel + les instructions Docker)
+* **`Dockerfile`** (le fichier avec `FROM node:20-alpine`)
+* **`.github/workflows/ci.yml`** (pour la partie automatisation)
+* **`SYNTHESE.md`** (ton analyse finale)
 Les tests utilisent **MongoDB Memory Server** (une instance MongoDB en mémoire). Aucune installation de MongoDB n'est nécessaire pour exécuter les tests. Voir `tests/README.md` pour plus de détails.
 
 Le serveur utilise TypeScript avec ES modules. En développement, utilisez `tsx` pour le hot reload automatique.
