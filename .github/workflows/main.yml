@@ -1,23 +1,32 @@
-name: CI Jaydee Kanban
-on: [push]
+name: CI Pipeline Jaydee Kanban
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    steps:
-      - name: Récupération du code
-        uses: actions/checkout@v4
 
-      - name: Installation de Node.js
-        uses: actions/setup-node@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      - name: Installation des dépendances
-        run: npm install --legacy-peer-deps
+      - name: Install dependencies
+        run: npm install
 
-      - name: Compilation (Build)
-        run: npm run build || echo "Build ignoré pour validation"
+      - name: Run Tests
+        run: npm test
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
-      - name: Exécution des tests
-        run: npm test || echo "Tests validés automatiquement"
+      - name: Build application
+        run: npm run build
